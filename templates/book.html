@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/styles.css" />
+    <title>Library</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="index.html">Books</a></li>
+      </ul>
+      <a href="/"><img src="/static/images/Library.png" /></a>
+    </nav>
+    <br />
+
+    <div class="flex-container">
+      <div class="nav-container">
+        <h2>navigation.</h2>
+        <a class="nav-link" href="/">- <b>book list</b> -</a>
+      </div>
+
+      <div class="info-container">
+        <h2>book info.</h2>
+        <p><b>title: </b>{{book.title}}</p>
+        <p><b>author: </b>{{book.author}}</p>
+        <p><b>genre: </b>{{book.genre}}</p>
+
+        {% if book.available %}
+        <p id="unavailable"><i>Unavailable</i></p>
+        {% else %}
+        <p id="available"><i>Available</i></p>
+        {% endif %} {% if book.available %}
+        <form action="/check_out/{{book_list.index(book)}}" method="POST">
+          <input class="check-out-button" type="submit" value="return book" />
+        </form>
+        {% else %}
+        <form action="/check_in/{{book_list.index(book)}}" method="POST">
+          <input class="check-out-button" type="submit" value="check out" />
+        </form>
+        {% endif %}
+      </div>
+
+      <div class="description-container">
+        <h2>description.</h2>
+        <p id="book-description">{{book.description}}</p>
+      </div>
+    </div>
+  </body>
+</html>

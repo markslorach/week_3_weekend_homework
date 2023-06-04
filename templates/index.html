@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/styles.css" />
+    <title>Library</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/">Books</a></li>
+      </ul>
+      <a href="/"><img src="/static/images/Library.png" /></a>
+    </nav>
+    <br />
+
+    <div class="flex-container">
+      <div class="form-container">
+        <h2>add book.</h2>
+        <form action="/" method="POST">
+          <label for="title"><b>title</b></label>
+          <br />
+          <input type="text" name="title" id="title" required />
+          <br />
+          <label for="author"><b>author</b></label>
+          <br />
+          <input type="text" name="author" id="author" required />
+          <br />
+          <label for="genre"><b>genre</b></label>
+          <br />
+          <input type="text" name="genre" id="genre" required />
+          <br />
+          <label for="description"><b>description</b></label>
+          <br />
+          <textarea id="description-input" rows="7" cols="20" type="text" name="description" id="description" required/></textarea>
+          <br>
+          <div id="add-book-available">
+          <label for="available"><b>check in</b></label>
+          <input id="checkbox" type="checkbox" name="available" id="available">
+          </div>
+          <br>
+          <input class="button" type="submit" value="add book" />
+        </form>
+      </div>
+
+      <div class="book-container">
+        <h2>books.</h2>
+
+        {% for book in book_list %}
+
+        <p><b>title: </b>{{book.title}}</p>
+        <p><b>author: </b>{{book.author}}</p>
+
+        {% if book.available %}
+        <p id="unavailable"><i>Unavailable</i></p>
+        {% else %}
+        <p id="available"><i>Available</i></p>
+        {% endif %}
+
+        <div class="button-flex">
+          <form action="/book/{{book_list.index(book)}}" method="POST">
+            <input class="info-button" type="submit" value="more info" />
+          </form>
+
+          <form action="/del/{{book_list.index(book)}}" method="POST">
+            <input class="remove-button" type="submit" value="remove" />
+          </form>
+        </div>
+
+        <br />
+        <br />
+
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
